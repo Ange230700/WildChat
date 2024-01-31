@@ -1,9 +1,9 @@
 .Home {
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   display: flex;
+  width: 100%;
 
   .Header {
     align-self: stretch;
@@ -32,17 +32,29 @@
   }
 
   .HomeWrapper {
+    overflow-x: hidden;
     align-self: stretch;
-    height: clamp(
-      calc(51.8rem * (var(--factor) * 1)),
-      // * calc(51.8rem * 100 / 32) in vw units (100vw = 32rem)
-      calc(162.5vw * (var(--factor) * 1)),
-      calc(51.8rem * (var(--factor) * 1) * var(--enlargement))
-    );
     flex-direction: column;
-    justify-content: space-between;
+    gap: clamp(
+      calc(2rem * (var(--factor) * 0.8)),
+      // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(6.25vw * (var(--factor) * 0.8)),
+      calc(2rem * (var(--factor) * 0.8) * var(--enlargement))
+    );
     align-items: center;
     display: flex;
+    padding-top: clamp(
+      calc(2rem * (var(--factor) * 0.6)),
+      // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(6.25vw * (var(--factor) * 0.6)),
+      calc(2rem * (var(--factor) * 0.6) * var(--enlargement))
+    );
+    padding-bottom: clamp(
+      calc(2rem * (var(--factor) * 3.75)),
+      // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(6.25vw * (var(--factor) * 3.75)),
+      calc(2rem * (var(--factor) * 3.75) * var(--enlargement))
+    );
 
     .SearchBarContainer {
       align-self: stretch;
@@ -153,6 +165,8 @@
         align-items: center;
         display: flex;
         cursor: pointer;
+        outline: none;
+        background-color: transparent;
 
         .Tab {
           text-align: center;
@@ -162,18 +176,18 @@
           background-color: black;
           color: white;
         }
+
+        &:hover {
+          transform: scale(1.06);
+          background-color: var(--faded-black-3);
+        }
       }
     }
 
     .WildersWrapper {
       align-self: stretch;
       // § Make the calculation of the following height with the clamp() function as it is done above, the value being 37.5rem (100vw = 32rem)
-      height: clamp(
-        calc(37.5rem * (var(--factor) * 1)),
-        // * calc(37.5rem * 100 / 32) in vw units (100vw = 32rem)
-        calc(117.1875vw * (var(--factor) * 1)),
-        calc(37.5rem * (var(--factor) * 1) * var(--enlargement))
-      );
+      flex: 1;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
@@ -186,6 +200,15 @@
       display: flex;
       overflow-y: scroll;
 
+      &::-webkit-scrollbar {
+        width: 0.5rem;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--faded-black-1);
+      }
+
       .WilderContainer {
         align-self: stretch;
         padding-left: clamp(
@@ -194,9 +217,14 @@
           calc(3.75vw * (var(--factor) * 1)),
           calc(1.2rem * (var(--factor) * 1) * var(--enlargement))
         );
-        justify-content: space-between;
         align-items: center;
         display: flex;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.005);
+          background-color: var(--faded-black-3);
+        }
 
         .AvatarContainer {
           flex-direction: column;
@@ -297,50 +325,54 @@
         }
       }
     }
-
-    .Navbar {
-      background-color: white;
-      align-self: stretch;
-      height: clamp(
-        calc(0.4rem * (var(--factor) * 19)),
-        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
-        calc(1.25vw * (var(--factor) * 19)),
-        calc(0.4rem * (var(--factor) * 19) * var(--enlargement))
+  }
+  .Navbar {
+    background-color: white;
+    align-self: stretch;
+    padding: clamp(
+        calc(0.5rem * (var(--factor) * 1)),
+        // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.5625vw * (var(--factor) * 1)),
+        calc(0.5rem * (var(--factor) * 1) * var(--enlargement))
+      )
+      clamp(
+        calc(0.5rem * (var(--factor) * 7)),
+        // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.5625vw * (var(--factor) * 7)),
+        calc(0.5rem * (var(--factor) * 7) * var(--enlargement))
       );
-      padding: 0
-        clamp(
-          calc(0.5rem * (var(--factor) * 7)),
-          // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
-          calc(1.5625vw * (var(--factor) * 7)),
-          calc(0.5rem * (var(--factor) * 7) * var(--enlargement))
-        );
-      justify-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    .Icon {
+      width: clamp(
+        calc(0.4rem * (var(--factor) * 10)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 10)),
+        calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+      );
+      height: clamp(
+        calc(0.4rem * (var(--factor) * 10)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 10)),
+        calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+      );
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
       display: flex;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background-color: transparent;
 
-      .Icon {
-        width: clamp(
-          calc(0.4rem * (var(--factor) * 10)),
-          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
-          calc(1.25vw * (var(--factor) * 10)),
-          calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
-        );
-        height: clamp(
-          calc(0.4rem * (var(--factor) * 10)),
-          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
-          calc(1.25vw * (var(--factor) * 10)),
-          calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
-        );
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        cursor: pointer;
-
-        .Vector {
-          width: 90%;
-          height: 90%;
-        }
+      .Vector {
+        width: 90%;
+        height: 90%;
       }
     }
   }
