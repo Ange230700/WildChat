@@ -288,6 +288,9 @@
 
             .WilderBio {
               font-weight: var(--font-weight-light);
+              overflow: hidden; // Ensures that the overflow text is hidden
+              white-space: nowrap; // Prevents text from wrapping to the next line
+              text-overflow: ellipsis; // Adds an ellipsis to truncated text
             }
           }
         }
