@@ -1,4 +1,12 @@
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null
+DROP TABLE IF EXISTS `User`;
+
+-- TODO: Add `avatar_id` column to `User` table and create `Avatar` table with `id` and `url` columns to store user avatars in the database.
+
+CREATE TABLE `User` (
+  `id` INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `username` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `online_status` TINYINT(1) NOT NULL,
+  `bio` VARCHAR(255) NOT NULL
 );

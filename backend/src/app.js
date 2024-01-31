@@ -25,19 +25,20 @@ const app = express();
 // 4. Be sure to only have URLs in the array with domains from which you want to allow requests.
 // For example: ["http://mysite.com", "http://another-domain.com"]
 
-/*
+/**/
 const cors = require("cors");
 
 app.use(
   cors({
     origin: [
       process.env.FRONTEND_URL, // keep this one, after checking the value in `backend/.env`
-      "http://mysite.com",
-      "http://another-domain.com",
-    ]
+      "http://192.168.0.19:3000",
+      "http://172.16.95.26:3000",
+      "http://localhost:3000",
+    ],
+    credentials: true,
   })
 );
-*/
 
 /* ************************************************************************* */
 
@@ -54,7 +55,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
@@ -107,15 +108,16 @@ app.use("/api", router);
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your frontend's build artifacts are located.
 
-/*
-const reactBuildPath = `${__dirname}/../../frontend/dist`;
+// const reactBuildPath = `${__dirname}/../../frontend/dist`;
 
 // Serve react resources
 
-app.use(express.static(reactBuildPath));
+app.use(express.static("./public"));
+// app.use(express.static(reactBuildPath));
 
 // Redirect unhandled requests to the react index file
 
+/*
 app.get("*", (req, res) => {
   res.sendFile(`${reactBuildPath}/index.html`);
 });
