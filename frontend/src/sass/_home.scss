@@ -1,0 +1,343 @@
+.Home {
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+
+  .Header {
+    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    .LogoContainer {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+
+      .Logo {
+        text-align: center;
+        font-size: clamp(
+          calc(2.8rem * (var(--factor) * 1)),
+          // * calc(2.8rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(8.75vw * (var(--factor) * 1)),
+          calc(2.8rem * (var(--factor) * 1) * var(--enlargement))
+        );
+        font-weight: var(--font-weight-bold);
+      }
+    }
+  }
+
+  .HomeWrapper {
+    align-self: stretch;
+    height: clamp(
+      calc(51.8rem * (var(--factor) * 1)),
+      // * calc(51.8rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(162.5vw * (var(--factor) * 1)),
+      calc(51.8rem * (var(--factor) * 1) * var(--enlargement))
+    );
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+
+    .SearchBarContainer {
+      align-self: stretch;
+      height: clamp(
+        calc(2.7rem * (var(--factor) * 1)),
+        // * calc(2.7rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(8.4375vw * (var(--factor) * 1)),
+        calc(2.7rem * (var(--factor) * 1) * var(--enlargement))
+      );
+      padding: 0
+        clamp(
+          calc(2rem * (var(--factor) * 1)),
+          // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(6.25vw * (var(--factor) * 1)),
+          calc(2rem * (var(--factor) * 1) * var(--enlargement))
+        );
+      justify-content: center;
+      align-items: center;
+      display: flex;
+
+      .SearchBarInput {
+        flex: 1 1 0;
+        height: clamp(
+          calc(2.7rem * (var(--factor) * 1)),
+          // * calc(2.7rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(8.4375vw * (var(--factor) * 1)),
+          calc(2.7rem * (var(--factor) * 1) * var(--enlargement))
+        );
+        padding: clamp(
+            calc(0.4rem * (var(--factor) * 1)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 1)),
+            calc(0.4rem * (var(--factor) * 1) * var(--enlargement))
+          )
+          0
+          clamp(
+            calc(0.5rem * (var(--factor) * 1)),
+            // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.5625vw * (var(--factor) * 1)),
+            calc(0.5rem * (var(--factor) * 1) * var(--enlargement))
+          )
+          clamp(
+            calc(0.4rem * (var(--factor) * 1)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 1)),
+            calc(0.4rem * (var(--factor) * 1) * var(--enlargement))
+          );
+        border-radius: clamp(
+          calc(0.6rem * (var(--factor) * 1)),
+          // * calc(.6rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.875vw * (var(--factor) * 1)),
+          calc(0.6rem * (var(--factor) * 1) * var(--enlargement))
+        );
+        overflow: hidden;
+        border: 1px black solid;
+        justify-content: flex-start;
+        align-items: center;
+        display: flex;
+
+        &::placeholder {
+          color: black;
+          font-size: clamp(
+            calc(1.6rem * (var(--factor) * 3 / 4)),
+            // * calc(1.6rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(5vw * (var(--factor) * 3 / 4)),
+            calc(1.6rem * (var(--factor) * 3 / 4) * var(--enlargement))
+          );
+          font-weight: var(--font-weight-light);
+          font-family: var(--font-family);
+        }
+      }
+    }
+
+    .TabsWrapper {
+      align-self: stretch;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(
+        calc(1.2rem * (var(--factor) * 1)),
+        // * calc(1.2rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(3.75vw * (var(--factor) * 1)),
+        calc(1.2rem * (var(--factor) * 1) * var(--enlargement))
+      );
+      display: flex;
+
+      .TabContainer {
+        padding: clamp(
+            calc(0.4rem * (var(--factor) * 1)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 1)),
+            calc(0.4rem * (var(--factor) * 1) * var(--enlargement))
+          )
+          clamp(
+            calc(0.5rem * (var(--factor) * 1)),
+            // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.5625vw * (var(--factor) * 1)),
+            calc(0.5rem * (var(--factor) * 1) * var(--enlargement))
+          );
+        border-radius: clamp(
+          calc(0.6rem * (var(--factor) * 2)),
+          // * calc(.6rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.875vw * (var(--factor) * 2)),
+          calc(0.6rem * (var(--factor) * 2) * var(--enlargement))
+        );
+        overflow: hidden;
+        border: 1px black solid;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        cursor: pointer;
+
+        .Tab {
+          text-align: center;
+        }
+
+        &.active {
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+
+    .WildersWrapper {
+      align-self: stretch;
+      // § Make the calculation of the following height with the clamp() function as it is done above, the value being 37.5rem (100vw = 32rem)
+      height: clamp(
+        calc(37.5rem * (var(--factor) * 1)),
+        // * calc(37.5rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(117.1875vw * (var(--factor) * 1)),
+        calc(37.5rem * (var(--factor) * 1) * var(--enlargement))
+      );
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: clamp(
+        calc(1.2rem * (var(--factor) * 1)),
+        // * calc(1.2rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(3.75vw * (var(--factor) * 1)),
+        calc(1.2rem * (var(--factor) * 1) * var(--enlargement))
+      );
+      display: flex;
+      overflow-y: scroll;
+
+      .WilderContainer {
+        align-self: stretch;
+        padding-left: clamp(
+          calc(1.2rem * (var(--factor) * 1)),
+          // * calc(1.2rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(3.75vw * (var(--factor) * 1)),
+          calc(1.2rem * (var(--factor) * 1) * var(--enlargement))
+        );
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+
+        .AvatarContainer {
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          display: flex;
+
+          .Avatar {
+            width: clamp(
+              calc(2rem * (var(--factor) * 2.5)),
+              // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(6.25vw * (var(--factor) * 2.5)),
+              calc(2rem * (var(--factor) * 2.5) * var(--enlargement))
+            );
+            height: clamp(
+              calc(2rem * (var(--factor) * 2.5)),
+              // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(6.25vw * (var(--factor) * 2.5)),
+              calc(2rem * (var(--factor) * 2.5) * var(--enlargement))
+            );
+            border-radius: clamp(
+              calc(1.6rem * (var(--factor) * 1.75)),
+              // * calc(1.6rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(5vw * (var(--factor) * 1.75)),
+              calc(1.6rem * (var(--factor) * 1.75) * var(--enlargement))
+            );
+            object-fit: cover;
+          }
+        }
+
+        .WilderInfo {
+          width: clamp(
+            calc(1.6rem * (var(--factor) * 16.125)),
+            // * calc(1.6rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(5vw * (var(--factor) * 16.125)),
+            calc(1.6rem * (var(--factor) * 16.125) * var(--enlargement))
+          );
+          height: clamp(
+            calc(2rem * (var(--factor) * 2.5)),
+            // * calc(2rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(6.25vw * (var(--factor) * 2.5)),
+            calc(2rem * (var(--factor) * 2.5) * var(--enlargement))
+          );
+          padding: clamp(
+              calc(0.4rem * (var(--factor) * 1.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 1.5)),
+              calc(0.4rem * (var(--factor) * 1.5) * var(--enlargement))
+            )
+            0
+            clamp(
+              calc(0.4rem * (var(--factor) * 1.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 1.5)),
+              calc(0.4rem * (var(--factor) * 1.5) * var(--enlargement))
+            )
+            clamp(
+              calc(0.4rem * (var(--factor) * 2)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 2)),
+              calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+            );
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          display: flex;
+
+          .WilderNameContainer {
+            justify-content: flex-start;
+            align-items: center;
+            display: flex;
+
+            .WilderName {
+              text-align: center;
+              color: black;
+              font-weight: var(--font-weight-regular);
+            }
+          }
+
+          .WilderBioContainer {
+            width: clamp(
+              calc(0.4rem * (var(--factor) * 45)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 45)),
+              calc(0.4rem * (var(--factor) * 45) * var(--enlargement))
+            );
+            justify-content: flex-start;
+            align-items: center;
+            display: flex;
+
+            .WilderBio {
+              font-weight: var(--font-weight-light);
+            }
+          }
+        }
+      }
+    }
+
+    .Navbar {
+      background-color: white;
+      align-self: stretch;
+      height: clamp(
+        calc(0.4rem * (var(--factor) * 19)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 19)),
+        calc(0.4rem * (var(--factor) * 19) * var(--enlargement))
+      );
+      padding: 0
+        clamp(
+          calc(0.5rem * (var(--factor) * 7)),
+          // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.5625vw * (var(--factor) * 7)),
+          calc(0.5rem * (var(--factor) * 7) * var(--enlargement))
+        );
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+
+      .Icon {
+        width: clamp(
+          calc(0.4rem * (var(--factor) * 10)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 10)),
+          calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+        );
+        height: clamp(
+          calc(0.4rem * (var(--factor) * 10)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 10)),
+          calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+        );
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        cursor: pointer;
+
+        .Vector {
+          width: 90%;
+          height: 90%;
+        }
+      }
+    }
+  }
+}

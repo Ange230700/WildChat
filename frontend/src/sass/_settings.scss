@@ -1,0 +1,66 @@
+:root {
+  // % COLORS
+  --white: hsl(0, 0%, 100%);
+  --faded-white-1: hsla(0, 0%, 100%, 0.75);
+  --faded-white-2: hsla(0, 0%, 100%, 0.5);
+  --faded-white-3: hsla(0, 0%, 100%, 0.25);
+  --black: hsl(0, 0%, 0%);
+  --faded-black-1: hsla(0, 0%, 0%, 0.75);
+  --faded-black-2: hsla(0, 0%, 0%, 0.5);
+  --faded-black-3: hsla(0, 0%, 0%, 0.25);
+
+  // % FONT FAMILY
+  --font-family: "Fredoka", sans-serif;
+
+  // % CONSTANTS
+  --constant: 10px;
+  --factor: 1;
+  --enlargement: 1.5;
+
+  // % FONT SIZE
+  font-size: var(--constant);
+
+  // % FONT WEIGHT
+  --font-weight-light: 300;
+  --font-weight-regular: 500;
+  --font-weight-bold: 700;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+html,
+body,
+#root,
+.App {
+  min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    border-radius: 10px;
+  }
+
+  // * &::-webkit-scrollbar-track {
+  // *     background: var(--faded-black-1);
+  // * }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--faded-black-2);
+  }
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--constant);
+  font-weight: var(--font-weight-regular);
+}
