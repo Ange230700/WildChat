@@ -17,25 +17,18 @@ async function insertUsers() {
     const queries = [];
 
     for (let index = 0; index < users.length; index += 1) {
-      const { password } = users[index];
-      const hashedPassword = argon2.hash(password);
+      const user = users[index];
+      const hashedPassword = argon2.hash(user.hashed_password);
 
       queries.push(
         hashedPassword.then((hashed) => {
           return database.query(
-            "INSERT INTO `User` (`username`, `email`, `hashed_password`, `online_status`) VALUES (?, ?, ?, ?)",
-            [
-              users[index].username,
-              users[index].email,
-              hashed,
-              users[index].online_status,
-            ]
+            "INSERT INTO `User` (username, email, hashed_password, online_status) VALUES (?, ?, ?, ?)",
+            [user.username, user.email, hashed, user.online_status]
           );
         })
       );
     }
-
-    await Promise.all(queries);
   } catch (error) {
     console.error("Error inserting users:", error.message);
     throw error;
