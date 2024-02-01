@@ -14,21 +14,22 @@ const users = require("./src/services/users");
 // § Asynchronous function to insert fake data into the database
 async function insertUsers() {
   try {
-    const queries = [];
+    // Create an array of promises for the hash operations
+    const hashPromises = users.map((user) => argon2.hash(user.hashed_password));
 
-    for (let index = 0; index < users.length; index += 1) {
+    // Await all the hash operations at once
+    const hashedPasswords = await Promise.all(hashPromises);
+
+    // Create and await the database insert operations
+    const insertPromises = hashedPasswords.map((hashedPassword, index) => {
       const user = users[index];
-      const hashedPassword = argon2.hash(user.hashed_password);
-
-      queries.push(
-        hashedPassword.then((hashed) => {
-          return database.query(
-            "INSERT INTO `User` (username, email, hashed_password, online_status) VALUES (?, ?, ?, ?)",
-            [user.username, user.email, hashed, user.online_status]
-          );
-        })
+      return database.query(
+        "INSERT INTO `User` (username, email, hashed_password, online_status) VALUES (?, ?, ?, ?)",
+        [user.username, user.email, hashedPassword, user.online_status]
       );
-    }
+    });
+
+    await Promise.all(insertPromises);
   } catch (error) {
     console.error("Error inserting users:", error.message);
     throw error;
