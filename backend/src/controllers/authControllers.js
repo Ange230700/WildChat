@@ -4,38 +4,40 @@ const tables = require("../tables");
 
 const login = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     // check if username exists
-    const user = await tables.User.readByUsername(username);
+    const user = await tables.User.readByEmail(email);
 
     if (!user) {
-      res.status(401).send({ error: "Invalid username or password" });
+      res.status(422).send({ error: "Invalid email or password" });
+      return;
     }
 
-    // check if password is correct
-    const passwordMatches = await argon2.verify(user.hashed_password, password);
+    if (user && user.hashed_password) {
+      const verified = await argon2.verify(user.hashed_password, password);
 
-    if (!passwordMatches) {
-      res.status(401).send({ error: "Invalid username or password" });
-    }
-
-    // generate token
-    const token = jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        online_status: user.online_status,
-      },
-      process.env.APP_SECRET,
-      {
-        expiresIn: "1h",
+      if (!verified) {
+        res.status(422).send({ error: "Invalid email or password" });
+        return;
       }
-    );
 
-    // send token to client
-    res.json({ token });
+      const token = jwt.sign({ sub: user.id }, process.env.APP_SECRET, {
+        expiresIn: "30m",
+      });
+
+      res.status(200).send({
+        token,
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+        },
+        message: "Login successful",
+      });
+    } else {
+      res.status(422).send({ error: "Invalid email or password" });
+    }
   } catch (err) {
     next(err);
   }

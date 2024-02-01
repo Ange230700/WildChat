@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+// const argon2 = require("argon2");
+
 // Import access to database tables
 const tables = require("../tables");
 
@@ -75,15 +78,42 @@ const edit = async (req, res, next) => {
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
-  // Extract the user data from the request body
-  const user = req.body;
-
   try {
+    // Extract the user data from the request body
+    const user = req.body;
+
+    // check if user exists
+    const existingUser = await tables.User.readByEmail(user.email);
+
+    if (existingUser) {
+      res.status(422).send({ error: "Email already exists" });
+      return;
+    }
+
+    if (!user.hashed_password) {
+      res.status(422).send({ error: "Password is required" });
+      return;
+    }
+
     // Insert the user into the database
     const insertId = await tables.User.create(user);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted user
-    res.status(201).json({ insertId });
+    if (insertId) {
+      const newUser = await tables.User.read(insertId);
+      const token = jwt.sign({ sub: newUser.id }, process.env.APP_SECRET, {
+        expiresIn: "30m",
+      });
+
+      res.status(201).send({
+        token,
+        user: {
+          id: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+        },
+        message: "User created successfully",
+      });
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

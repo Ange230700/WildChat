@@ -24,8 +24,8 @@ async function insertUsers() {
     const insertPromises = hashedPasswords.map((hashedPassword, index) => {
       const user = users[index];
       return database.query(
-        "INSERT INTO `User` (username, email, hashed_password, online_status) VALUES (?, ?, ?, ?)",
-        [user.username, user.email, hashedPassword, user.online_status]
+        "INSERT INTO `User` (username, email, hashed_password) VALUES (?, ?, ?)",
+        [user.username, user.email, hashedPassword]
       );
     });
 

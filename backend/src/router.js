@@ -26,7 +26,7 @@ router.get("/user", verifyToken, userControllers.readToken);
 // Route to add a new item
 
 // § userControllers
-router.post("/user", userControllers.add);
+router.post("/user", hashPassword, userControllers.add);
 
 // § authControllers
 router.post("/login", authControllers.login);

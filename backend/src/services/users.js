@@ -8,7 +8,6 @@ for (let index = 0; index < numberOfUsers; index += 1) {
     username: faker.internet.userName(),
     email: faker.internet.email(),
     hashed_password: faker.internet.password(),
-    online_status: faker.number.binary(),
   });
 }
 

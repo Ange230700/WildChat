@@ -6,6 +6,5 @@ CREATE TABLE `User` (
   `id` INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `hashed_password` VARCHAR(255) NOT NULL,
-  `online_status` TINYINT(1) NOT NULL
+  `hashed_password` VARCHAR(255) NOT NULL
 );

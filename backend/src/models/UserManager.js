@@ -10,15 +10,10 @@ class UserManager extends AbstractManager {
   // The C of CRUD - Create operation
 
   async create(user) {
-    // Validate online_status
-    if (typeof user.online_status !== "number") {
-      throw new Error("online_status must be a number");
-    }
-
     // Execute the SQL INSERT query to add a new user to the "user" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (username, email, hashed_password, online_status) VALUES (?, ?, ?, ?)`,
-      [user.username, user.email, user.hashed_password, user.online_status]
+      `INSERT INTO ${this.table} (username, email, hashed_password) VALUES (?, ?, ?)`,
+      [user.username, user.email, user.hashed_password]
     );
 
     // Return the ID of the newly inserted user
@@ -42,16 +37,12 @@ class UserManager extends AbstractManager {
     return rows[0];
   }
 
-  async readByUserName(username) {
-    // Execute the SQL SELECT query to retrieve a specific user by its ID
+  async readByEmail(email) {
+    // Execute the SQL SELECT query to retrieve a specific user by its email
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE username = ?`,
-      [username]
+      `SELECT * FROM ${this.table} WHERE email = ?`,
+      [email]
     );
-
-    if (rows.length === 0) {
-      throw new Error(`User with username ${username} not found`);
-    }
 
     // Return the first row of the result, which represents the user
     return rows[0];
@@ -71,14 +62,8 @@ class UserManager extends AbstractManager {
   async update(user) {
     // Execute the SQL UPDATE query to modify an existing user
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET username = ?, email = ?, hashed_password = ?, online_status = ? WHERE id = ?`,
-      [
-        user.username,
-        user.email,
-        user.hashed_password,
-        user.online_status,
-        user.id,
-      ]
+      `UPDATE ${this.table} SET username = ?, email = ?, hashed_password = ? WHERE id = ?`,
+      [user.username, user.email, user.hashed_password, user.id]
     );
 
     // Return the number of affected rows
