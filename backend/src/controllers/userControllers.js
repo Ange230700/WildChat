@@ -20,22 +20,58 @@ const read = async (req, res, next) => {
   try {
     // Fetch a specific user from the database based on the provided ID
     const user = await tables.User.read(req.params.id);
-
-    // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the user in JSON format
-    if (!user) {
-      res.sendStatus(404);
-    } else {
-      res.json(user);
-    }
+    res.json(user);
   } catch (err) {
     // Pass any errors to the error-handling middleware
+    if (err.message === `User with ID ${req.params.id} not found`) {
+      res.sendStatus(404);
+    } else {
+      next(err);
+    }
+  }
+};
+
+const readToken = async (req, res, next) => {
+  const userInformation = req.auth;
+  try {
+    if (!userInformation || !userInformation.sub) {
+      res.sendStatus(401).json({ error: "Unauthorized" });
+    }
+
+    const user = await tables.User.read(userInformation.sub);
+
+    if (!user) {
+      res.sendStatus(404);
+    }
+
+    const { hashed_password, ...userWithoutPassword } = user;
+
+    res.json(userWithoutPassword);
+  } catch (err) {
+    res.sendStatus(500);
     next(err);
   }
 };
 
 // The E of BREAD - Edit (Update) operation
-// This operation is not yet implemented
+const edit = async (req, res, next) => {
+  // Extract the user data from the request body
+  const user = req.body;
+
+  try {
+    // Update the user in the database
+    const affectedRows = await tables.User.update(user);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    }
+
+    // Respond with HTTP 200 (OK) and the number of affected rows
+    res.status(200).json({ affectedRows });
+  } catch (err) {
+    next(err);
+  }
+};
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
@@ -55,13 +91,29 @@ const add = async (req, res, next) => {
 };
 
 // The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+const destroy = async (req, res, next) => {
+  try {
+    // Delete the user from the database
+    const affectedRows = await tables.User.delete(req.params.id);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    }
+
+    // Respond with HTTP 200 (OK) and the number of affected rows
+    res.status(204).json({ affectedRows });
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
   browse,
   read,
-  // edit,
+  readToken,
+  edit,
   add,
-  // destroy,
+  destroy,
 };

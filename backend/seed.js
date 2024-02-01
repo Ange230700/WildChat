@@ -3,6 +3,7 @@ require("dotenv").config();
 
 // Import Faker library for generating fake data
 // const { faker } = require("@faker-js/faker");
+const argon2 = require("argon2");
 
 // Import database client
 const database = require("./database/client");
@@ -16,19 +17,21 @@ async function insertUsers() {
     const queries = [];
 
     for (let index = 0; index < users.length; index += 1) {
-      const user = users[index];
+      const { password } = users[index];
+      const hashedPassword = argon2.hash(password);
 
       queries.push(
-        database.query(
-          "INSERT INTO `User` (`username`, `email`, `password`, `online_status`, `bio`) VALUES (?, ?, ?, ?, ?)",
-          [
-            user.username,
-            user.email,
-            user.password,
-            user.online_status,
-            user.bio,
-          ]
-        )
+        hashedPassword.then((hashed) => {
+          return database.query(
+            "INSERT INTO `User` (`username`, `email`, `hashed_password`, `online_status`) VALUES (?, ?, ?, ?)",
+            [
+              users[index].username,
+              users[index].email,
+              hashed,
+              users[index].online_status,
+            ]
+          );
+        })
       );
     }
 

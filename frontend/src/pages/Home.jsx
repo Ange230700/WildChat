@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [wilders, setWilders] = useState([]);
@@ -7,8 +8,9 @@ function Home() {
   const [activeTab, setActiveTab] = useState(0);
   const [activeNavIcon, setActiveNavIcon] = useState(0);
   const tabs = ["Wilders", "Chats"];
-  const navIcons = ["home_icon.svg", "profile_icon.svg"];
+  const navIcons = ["house-solid.svg", "user-solid.svg"];
   const chats = [];
+  const navigate = useNavigate();
 
   function handleSearchChange(event) {
     setSearchValue(event.target.value);
@@ -77,9 +79,6 @@ function Home() {
                     <div className="WilderNameContainer">
                       <h2 className="WilderName">{wilder.username}</h2>
                     </div>
-                    <div className="WilderBioContainer">
-                      <h3 className="WilderBio">{wilder.bio}</h3>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -103,9 +102,9 @@ function Home() {
                     <div className="WilderNameContainer">
                       <h2 className="WilderName">{chat.username}</h2>
                     </div>
-                    <div className="WilderBioContainer">
+                    {/* <div className="WilderBioContainer">
                       <h3 className="WilderBio">{chat.bio}</h3>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}
@@ -117,7 +116,14 @@ function Home() {
             type="button"
             className="Icon"
             key={icon}
-            onClick={() => setActiveNavIcon(index)}
+            onClick={() => {
+              setActiveNavIcon(index);
+              if (index === 0) {
+                navigate("/");
+              } else if (index === 1) {
+                navigate("/profile");
+              }
+            }}
           >
             <img
               className="Vector"

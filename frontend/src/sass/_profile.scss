@@ -1,0 +1,369 @@
+.UserProfile {
+  width: 100%;
+  height: clamp(
+    calc(0.4rem * (var(--factor) * 142)),
+    // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+    calc(1.25vw * (var(--factor) * 142)),
+    calc(0.4rem * (var(--factor) * 142) * var(--enlargement))
+  );
+  background: white;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+
+  .Header {
+    align-self: stretch;
+    width: 100%;
+    height: clamp(
+      calc(0.4rem * (var(--factor) * 9.25)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 9.25)),
+      calc(0.4rem * (var(--factor) * 9.25) * var(--enlargement))
+    );
+    padding-top: clamp(
+      calc(0.4rem * (var(--factor) * 2.5)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 2.5)),
+      calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+    );
+    padding-left: clamp(
+      calc(0.4rem * (var(--factor) * 3)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 3)),
+      calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+    );
+    padding-right: clamp(
+      calc(0.4rem * (var(--factor) * 3)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 3)),
+      calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+    );
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+
+    .Icon {
+      width: clamp(
+        calc(0.4rem * (var(--factor) * 4)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 4)),
+        calc(0.4rem * (var(--factor) * 4) * var(--enlargement))
+      );
+      height: clamp(
+        calc(0.4rem * (var(--factor) * 6)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 6)),
+        calc(0.4rem * (var(--factor) * 6) * var(--enlargement))
+      );
+
+      .Vector {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .ProfileWrapper {
+    align-self: stretch;
+    width: 100%;
+    height: clamp(
+      calc(0.4rem * (var(--factor) * 49.5)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 49.5)),
+      calc(0.4rem * (var(--factor) * 49.5) * var(--enlargement))
+    );
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+
+    .ProfileContainer {
+      width: 100%;
+      height: 100%;
+      padding-top: clamp(
+        calc(0.4rem * (var(--factor) * 2.5)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 2.5)),
+        calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+      );
+      padding-bottom: clamp(
+        calc(0.4rem * (var(--factor) * 2.5)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 2.5)),
+        calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+      );
+      background: rgba(0, 0, 0, 0.2);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(
+        calc(0.4rem * (var(--factor) * 2.5)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 2.5)),
+        calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+      );
+      display: flex;
+
+      .AvatarContainer {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        display: flex;
+        width: clamp(
+          calc(0.4rem * (var(--factor) * 22)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 22)),
+          calc(0.4rem * (var(--factor) * 22) * var(--enlargement))
+        );
+        height: clamp(
+          calc(0.4rem * (var(--factor) * 22)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 22)),
+          calc(0.4rem * (var(--factor) * 22) * var(--enlargement))
+        );
+
+        .Avatar {
+          width: 100%;
+          height: 100%;
+          border-radius: clamp(
+            calc(0.4rem * (var(--factor) * 11.25)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 11.25)),
+            calc(0.4rem * (var(--factor) * 11.25) * var(--enlargement))
+          );
+          object-fit: cover;
+        }
+      }
+
+      .UsernameContainer {
+        align-self: stretch;
+        width: 100%;
+        height: clamp(
+          calc(0.4rem * (var(--factor) * 4)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 4)),
+          calc(0.4rem * (var(--factor) * 4) * var(--enlargement))
+        );
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+
+        .Username {
+          text-align: center;
+          font-weight: var(--font-weight-regular);
+        }
+      }
+
+      .EmailContainer {
+        align-self: stretch;
+        width: 100%;
+        height: clamp(
+          calc(0.4rem * (var(--factor) * 4)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 4)),
+          calc(0.4rem * (var(--factor) * 4) * var(--enlargement))
+        );
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        .Email {
+          text-align: center;
+          font-weight: var(--font-weight-light);
+        }
+      }
+
+      .TabsWrapper {
+        align-self: stretch;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(
+          calc(0.4rem * (var(--factor) * 3)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 3)),
+          calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+        );
+        display: flex;
+
+        .TabContainer {
+          .Icon {
+            width: clamp(
+              calc(0.4rem * (var(--factor) * 4.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 4.5)),
+              calc(0.4rem * (var(--factor) * 4.5) * var(--enlargement))
+            );
+            height: clamp(
+              calc(0.4rem * (var(--factor) * 4.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 4.5)),
+              calc(0.4rem * (var(--factor) * 4.5) * var(--enlargement))
+            );
+
+            .Vector {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          padding-left: clamp(
+            calc(0.4rem * (var(--factor) * 2)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2)),
+            calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+          );
+          padding-right: clamp(
+            calc(0.4rem * (var(--factor) * 2)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2)),
+            calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+          );
+          padding-top: clamp(
+            calc(0.4rem * (var(--factor) * 1)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 1)),
+            calc(0.4rem * (var(--factor) * 1) * var(--enlargement))
+          );
+          padding-bottom: clamp(
+            calc(0.4rem * (var(--factor) * 1)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 1)),
+            calc(0.4rem * (var(--factor) * 1) * var(--enlargement))
+          );
+          background: black;
+          border-radius: clamp(
+            calc(0.4rem * (var(--factor) * 3)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 3)),
+            calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+          );
+          justify-content: center;
+          align-items: center;
+          gap: clamp(
+            calc(0.4rem * (var(--factor) * 2)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2)),
+            calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+          );
+          display: flex;
+
+          .Tab {
+            text-align: center;
+            font-weight: var(--font-weight-regular);
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .OptionsWrapper {
+    align-self: stretch;
+    width: 100%;
+    flex: 1;
+    padding-top: clamp(
+      calc(0.4rem * (var(--factor) * 3)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 3)),
+      calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+    );
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+
+    .OptionContainer {
+      align-self: stretch;
+      height: clamp(
+        calc(0.4rem * (var(--factor) * 12)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 12)),
+        calc(0.4rem * (var(--factor) * 12) * var(--enlargement))
+      );
+      padding-left: clamp(
+        calc(0.4rem * (var(--factor) * 6)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 6)),
+        calc(0.4rem * (var(--factor) * 6) * var(--enlargement))
+      );
+      padding-right: clamp(
+        calc(0.4rem * (var(--factor) * 6)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 6)),
+        calc(0.4rem * (var(--factor) * 6) * var(--enlargement))
+      );
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      display: flex;
+
+      .Option {
+        align-self: stretch;
+        width: 100%;
+        height: 100%;
+        padding-left: clamp(
+          calc(0.4rem * (var(--factor) * 4)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 4)),
+          calc(0.4rem * (var(--factor) * 4) * var(--enlargement))
+        );
+        padding-right: clamp(
+          calc(0.4rem * (var(--factor) * 4)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 4)),
+          calc(0.4rem * (var(--factor) * 4) * var(--enlargement))
+        );
+        background: rgba(0, 0, 0, 0.46);
+        border-radius: clamp(
+          calc(0.4rem * (var(--factor) * 4.5)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 4.5)),
+          calc(0.4rem * (var(--factor) * 4.5) * var(--enlargement))
+        );
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+
+        .OptionContentContainer {
+          justify-content: flex-start;
+          align-items: center;
+          gap: clamp(
+            calc(0.4rem * (var(--factor) * 2.5)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2.5)),
+            calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+          );
+          display: flex;
+
+          .OptionContent {
+            text-align: center;
+            font-weight: var(--font-weight-regular);
+          }
+        }
+
+        .Icon {
+          width: clamp(
+            calc(0.4rem * (var(--factor) * 3)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 3)),
+            calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+          );
+          height: clamp(
+            calc(0.4rem * (var(--factor) * 5)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 5)),
+            calc(0.4rem * (var(--factor) * 5) * var(--enlargement))
+          );
+
+          .Vector {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
