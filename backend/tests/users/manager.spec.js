@@ -6,7 +6,11 @@ describe("Create user", () => {
   it("should create an user successfully", async () => {
     // Define a sample user for testing
     const testUser = {
-      title: "Sample User",
+      username: "ange",
+      email: "ange@gmail.com",
+      password: "a",
+      online_status: 0,
+      bio: "ezfghn",
     };
 
     // Send a create request to the user table with a test user
@@ -14,7 +18,7 @@ describe("Create user", () => {
 
     // Check if the newly added user exists in the database
     const [rows] = await database.query(
-      "select * from user where id = ?",
+      "SELECT * FROM `User` WHERE id = ?",
       insertId
     );
 
@@ -22,7 +26,11 @@ describe("Create user", () => {
 
     // Assertions
     expect(foundUser).toBeDefined();
-    expect(foundUser.title).toBe(testUser.title);
+    expect(foundUser.username).toBe(testUser.username);
+    expect(foundUser.email).toBe(testUser.email);
+    expect(foundUser.password).toBe(testUser.password);
+    expect(foundUser.online_status).toBe(testUser.online_status);
+    expect(foundUser.bio).toBe(testUser.bio);
   });
 
   it("should throw when passing invalid object", async () => {
