@@ -57,6 +57,14 @@
         calc(1.25vw * (var(--factor) * 6)),
         calc(0.4rem * (var(--factor) * 6) * var(--enlargement))
       );
+      background-color: transparent;
+      border: none;
+      outline: none;
+
+      &:hover {
+        cursor: pointer;
+        transform: scaleX(1.1);
+      }
 
       .Vector {
         width: 100%;

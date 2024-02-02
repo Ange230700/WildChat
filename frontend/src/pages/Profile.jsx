@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
+
 function Profile() {
+  const navigate = useNavigate();
+  const { user } = useUser();
+
   return (
     <div className="UserProfile">
       <div className="Header">
-        <div className="Icon" style={{ width: 16, height: 27 }}>
+        <button type="button" className="Icon" onClick={() => navigate(-1)}>
           <img
             className="Vector"
             src={`${
@@ -10,7 +16,7 @@ function Profile() {
             }/assets/icons/chevron-left-solid.svg`}
             alt="icon"
           />
-        </div>
+        </button>
       </div>
       <div className="ProfileWrapper">
         <div className="ProfileContainer">
@@ -24,12 +30,12 @@ function Profile() {
             />
           </div>
           <div className="UsernameContainer">
-            <h1 className="Username">Claire BOUCHER</h1>
+            <h1 className="Username">{user && user.username}</h1>
           </div>
           <div className="EmailContainer">
-            <h2 className="Email">aczdf@zed.de</h2>
+            <h2 className="Email">{user && user.email}</h2>
           </div>
-          <div className="TabsWrapper">
+          {/* <div className="TabsWrapper">
             <div className="TabContainer">
               <div className="Icon">
                 <img
@@ -42,7 +48,7 @@ function Profile() {
               </div>
               <h2 className="Tab">Edit avatar</h2>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="OptionsWrapper">

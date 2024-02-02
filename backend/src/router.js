@@ -15,7 +15,7 @@ const authControllers = require("./controllers/authControllers");
 // Route to get a list of items
 
 // § userControllers
-router.get("/users", hashPassword, userControllers.browse);
+router.get("/users", userControllers.browse);
 
 // Route to get a specific item by ID
 

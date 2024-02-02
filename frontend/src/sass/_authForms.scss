@@ -1,0 +1,315 @@
+// ::selection {
+//   background: var(--primary-color);
+//   color: var(--neutral-color-1);
+// }
+
+.wrapper {
+  align-self: center;
+  overflow: hidden;
+  max-width: clamp(
+    calc(0.4rem * (var(--factor) * 97.5)),
+    // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+    calc(1.25vw * (var(--factor) * 97.5)),
+    calc(0.4rem * (var(--factor) * 97.5) * var(--enlargement))
+  );
+  //   background: #fff;
+  padding: clamp(
+    calc(0.4rem * (var(--factor) * 2)),
+    // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+    calc(1.25vw * (var(--factor) * 2)),
+    calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+  );
+  border-radius: clamp(
+    calc(0.4rem * (var(--factor) * 2.5)),
+    // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+    calc(1.25vw * (var(--factor) * 2.5)),
+    calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+  );
+  align-self: center;
+  margin: 0 auto;
+
+  .title-text {
+    display: flex;
+    width: 200%;
+
+    .title {
+      width: 50%;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+
+  .form-container {
+    width: 100%;
+    overflow: hidden;
+
+    .slide-controls {
+      position: relative;
+      display: flex;
+      height: clamp(
+        calc(0.4rem * (var(--factor) * 10)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 10)),
+        calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+      );
+      width: 100%;
+      overflow: hidden;
+      margin: clamp(
+          calc(0.4rem * (var(--factor) * 2)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 2)),
+          calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+        )
+        0
+        clamp(
+          calc(0.4rem * (var(--factor) * 2)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 2)),
+          calc(0.4rem * (var(--factor) * 2) * var(--enlargement))
+        )
+        0;
+      justify-content: space-between;
+      border: 1px solid var(--neutral-color-2);
+      border-radius: clamp(
+        calc(0.4rem * (var(--factor) * 2.5)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 2.5)),
+        calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+      );
+
+      .slide {
+        height: 100%;
+        width: 100%;
+        font-size: clamp(
+          calc(0.4rem * (var(--factor) * 2.5)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 2.5)),
+          calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+        );
+        text-align: center;
+        cursor: pointer;
+        z-index: 1;
+        transition: all 0.6s ease;
+        border: none;
+        background-color: var(--faded-black-3);
+      }
+
+      button.signup {
+        color: var(--white);
+      }
+
+      .slider-tab {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        left: 0;
+        z-index: 0;
+        border-radius: clamp(
+          calc(0.4rem * (var(--factor) * 2.5)),
+          // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+          calc(1.25vw * (var(--factor) * 2.5)),
+          calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+        );
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      #signup:checked ~ .slider-tab {
+        left: 50%;
+      }
+
+      #signup:checked ~ button.signup {
+        color: var(--white);
+        background-color: var(--black);
+        cursor: default;
+        user-select: none;
+      }
+
+      #signup:checked ~ button.login {
+        color: var(--black);
+      }
+
+      #login:checked ~ button.signup {
+        color: var(--black);
+      }
+
+      #login:checked ~ button.login {
+        cursor: default;
+        user-select: none;
+        color: var(--white);
+        background-color: var(--black);
+      }
+    }
+
+    .form-inner {
+      display: flex;
+      width: 200%;
+
+      form {
+        width: 50%;
+
+        .field {
+          height: clamp(
+            calc(0.4rem * (var(--factor) * 2.5 * 3.5)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2.5 * 3.5)),
+            calc(0.4rem * (var(--factor) * 2.5 * 3.5) * var(--enlargement))
+          );
+          width: 100%;
+          margin-top: clamp(
+            calc(0.4rem * (var(--factor) * 2.5)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2.5)),
+            calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+          );
+
+          input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            padding-left: clamp(
+              calc(0.4rem * (var(--factor) * 2.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 2.5)),
+              calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+            );
+            border-radius: clamp(
+              calc(0.4rem * (var(--factor) * 2.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 2.5)),
+              calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+            );
+            border: 1px solid var(--black);
+            border-bottom-width: 2px;
+            // font-size: 17px;
+            transition: all 0.3s ease;
+          }
+
+          input::placeholder {
+            color: var(--black);
+            transition: all 0.3s ease;
+          }
+
+          input:focus {
+            border-color: var(--black);
+          }
+
+          .errorMessage {
+            color: red;
+            position: absolute;
+            font-size: 12px;
+            left: 10px;
+          }
+
+          .errorEmail,
+          p {
+            color: red;
+            font-size: 12px;
+            left: 10px;
+          }
+
+          .errorPassword {
+            border: 2px solid red;
+          }
+        }
+
+        .pass-link {
+          margin-top: clamp(
+            calc(0.4rem * (var(--factor) * 1)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 1)),
+            calc(0.4rem * (var(--factor) * 1) * var(--enlargement))
+          );
+          font-size: 1.6rem;
+
+          a {
+            color: var(--black);
+          }
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .signup-link {
+          font-size: 1.6rem;
+          text-align: center;
+          margin-top: clamp(
+            calc(0.4rem * (var(--factor) * 2.5 * 3)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2.5 * 3)),
+            calc(0.4rem * (var(--factor) * 2.5 * 3) * var(--enlargement))
+          );
+
+          a {
+            color: var(--neutral-color-2);
+            text-decoration: underline;
+          }
+        }
+
+        .btn {
+          height: clamp(
+            calc(0.4rem * (var(--factor) * 2.5 * 3)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2.5 * 3)),
+            calc(0.4rem * (var(--factor) * 2.5 * 3) * var(--enlargement))
+          );
+          width: 100%;
+          border-radius: clamp(
+            calc(0.4rem * (var(--factor) * 2.5)),
+            // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+            calc(1.25vw * (var(--factor) * 2.5)),
+            calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+          );
+          position: relative;
+          overflow: hidden;
+
+          .btn-layer {
+            height: 100%;
+            width: 300%;
+            position: absolute;
+            left: -100%;
+            background: var(--black);
+            border-radius: clamp(
+              calc(0.4rem * (var(--factor) * 2.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 2.5)),
+              calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+            );
+            transition: all 0.4s ease;
+          }
+
+          input[type="submit"] {
+            color: var(--white);
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            background: none;
+            border: none;
+            padding-left: 0;
+            border-radius: clamp(
+              calc(0.4rem * (var(--factor) * 2.5)),
+              // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+              calc(1.25vw * (var(--factor) * 2.5)),
+              calc(0.4rem * (var(--factor) * 2.5) * var(--enlargement))
+            );
+            cursor: pointer;
+            font-size: 2rem;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .btn:hover {
+          .btn-layer {
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,23 +1,38 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
+import AppWrapper from "./AppWrapper";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Authentification from "./pages/Authentification";
 import "./sass/index.scss";
+import { UserProvider } from "./contexts/UserContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <AppWrapper />,
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Authentification />,
       },
       {
-        path: "profile",
-        element: <Profile />,
+        path: "/home",
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -27,6 +42,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );

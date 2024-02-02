@@ -1,0 +1,50 @@
+.Navbar {
+  background-color: white;
+  align-self: stretch;
+  padding: clamp(
+      calc(0.5rem * (var(--factor) * 1)),
+      // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.5625vw * (var(--factor) * 1)),
+      calc(0.5rem * (var(--factor) * 1) * var(--enlargement))
+    )
+    clamp(
+      calc(0.5rem * (var(--factor) * 7)),
+      // * calc(.5rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.5625vw * (var(--factor) * 7)),
+      calc(0.5rem * (var(--factor) * 7) * var(--enlargement))
+    );
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  .Icon {
+    width: clamp(
+      calc(0.4rem * (var(--factor) * 10)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 10)),
+      calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+    );
+    height: clamp(
+      calc(0.4rem * (var(--factor) * 10)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 10)),
+      calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+    );
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    .Vector {
+      width: 90%;
+      height: 90%;
+    }
+  }
+}

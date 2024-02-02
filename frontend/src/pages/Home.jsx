@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Home() {
   const [wilders, setWilders] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [activeTab, setActiveTab] = useState(0);
-  const [activeNavIcon, setActiveNavIcon] = useState(0);
   const tabs = ["Wilders", "Chats"];
-  const navIcons = ["house-solid.svg", "user-solid.svg"];
-  const chats = [];
-  const navigate = useNavigate();
+  // const chats = [];
 
   function handleSearchChange(event) {
     setSearchValue(event.target.value);
@@ -65,7 +62,7 @@ function Home() {
                   .includes(searchValue.toLowerCase())
               )
               .map((wilder) => (
-                <div className="WilderContainer">
+                <div className="WilderContainer" key={wilder.id}>
                   <div className="AvatarContainer">
                     <img
                       className="Avatar"
@@ -82,59 +79,10 @@ function Home() {
                   </div>
                 </div>
               ))}
-          {activeTab === 1 &&
-            chats
-              .filter((chat) =>
-                chat.username.toLowerCase().includes(searchValue.toLowerCase())
-              )
-              .map((chat) => (
-                <div className="WilderContainer">
-                  <div className="AvatarContainer">
-                    <img
-                      className="Avatar"
-                      src={`${
-                        import.meta.env.VITE_BACKEND_URL
-                      }/assets/images/89375707.png`}
-                      alt="Avatar"
-                    />
-                  </div>
-                  <div className="WilderInfo">
-                    <div className="WilderNameContainer">
-                      <h2 className="WilderName">{chat.username}</h2>
-                    </div>
-                    {/* <div className="WilderBioContainer">
-                      <h3 className="WilderBio">{chat.bio}</h3>
-                    </div> */}
-                  </div>
-                </div>
-              ))}
+          {activeTab === 1 && null}
         </div>
       </section>
-      <nav className="Navbar">
-        {navIcons.map((icon, index) => (
-          <button
-            type="button"
-            className="Icon"
-            key={icon}
-            onClick={() => {
-              setActiveNavIcon(index);
-              if (index === 0) {
-                navigate("/");
-              } else if (index === 1) {
-                navigate("/profile");
-              }
-            }}
-          >
-            <img
-              className="Vector"
-              src={`${import.meta.env.VITE_BACKEND_URL}/assets/icons/${
-                index === activeNavIcon ? icon.replace(".svg", "_1.svg") : icon
-              }`}
-              alt="icon"
-            />
-          </button>
-        ))}
-      </nav>
+      <Navbar />
     </section>
   );
 }
