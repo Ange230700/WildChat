@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useState, useMemo, useEffect } from "react";
 import { PropTypes } from "prop-types";
 import axios from "axios";
 import isTokenExpired from "../utils/utils";
@@ -16,33 +16,45 @@ export function UserProvider({ children }) {
     }
   };
 
-  const fetchUser = () => {
+  const fetchUser = async () => {
     const token = localStorage.getItem("token");
 
-    if (token) {
-      if (isTokenExpired(token)) {
-        logout();
-        return;
+    try {
+      if (token) {
+        if (isTokenExpired(token)) {
+          logout();
+          return;
+        }
       }
 
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user`,
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
-        .then((response) => {
-          setUser(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        }
+      );
+
+      if (response.status === 200) {
+        setUser(response.data);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
+  const updateUserInContext = (updatedUser) => {
+    setUser(updatedUser);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   const contextValue = useMemo(() => {
-    return { user, setUser, fetchUser, logout };
-  }, [user, setUser, fetchUser, logout]);
+    return { user, setUser, fetchUser, logout, updateUserInContext };
+  }, [user, setUser, fetchUser, logout, updateUserInContext]);
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

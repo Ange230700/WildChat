@@ -10,8 +10,6 @@ function Profile() {
     logout(navigate);
   };
 
-  // § I am trying to delete the user account from the database and log them out, but the delete button is not responding. What should I do?
-
   const handleDeleteAccount = async () => {
     try {
       await axios.delete(
@@ -64,7 +62,7 @@ function Profile() {
                   alt="icon"
                 />
               </div>
-              <h2 className="Tab">Edit avatar</h2>
+              <h2 className="Tab">Edit profile</h2>
             </Link>
           </div>
         </div>

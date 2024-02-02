@@ -5,16 +5,16 @@ import { useUser } from "../contexts/UserContext";
 import Navbar from "../components/Navbar";
 
 function Editor() {
+  const { user, fetchUser } = useUser();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-  const { user, fetchUser } = useUser();
   const [formDetails, setFormDetails] = useState({
     username: user?.username || "",
     email: user?.email || "",
   });
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
   const location = useLocation();
   const [emailError, setEmailError] = useState("");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -24,25 +24,30 @@ function Editor() {
   };
 
   const handleInputChange = (e) => {
-    if (e.target.name === "email") {
-      setEmailError("");
+    const { value } = e.target;
+    const { name } = e.target;
+
+    if (name === "email") {
+      if (!emailRegex.test(value)) {
+        setEmailError("Email is not valid");
+      } else {
+        setEmailError("");
+      }
     }
 
-    if (e.target.name === "current_password") {
+    if (name === "current_password") {
       setCurrentPassword(e.target.value);
     }
 
-    if (e.target.name === "new_password") {
+    if (name === "new_password") {
       setNewPassword(e.target.value);
     }
 
-    if (e.target.name === "confirm_password") {
+    if (name === "confirm_password") {
       setConfirmNewPassword(e.target.value);
     }
 
-    if (e.target.name) {
-      setFormDetails({ ...formDetails, [e.target.name]: e.target.value });
-    }
+    setFormDetails({ ...formDetails, [name]: value });
   };
 
   const formStyle = { marginLeft: "0%" };
@@ -54,7 +59,11 @@ function Editor() {
     const updatedUser = new FormData();
 
     Object.keys(formDetails).forEach((key) => {
-      if (formDetails[key] && formDetails[key] !== user[key]) {
+      if (
+        formDetails[key] &&
+        formDetails[key] !== user[key] &&
+        key !== "confirm_password"
+      ) {
         updatedUser.append(key, formDetails[key]);
       }
     });
@@ -62,10 +71,14 @@ function Editor() {
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/${user.id}`,
-        updatedUser,
+        {
+          ...formDetails,
+          current_password: currentPassword,
+          new_password: newPassword,
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
@@ -124,7 +137,7 @@ function Editor() {
                 <input
                   type="text"
                   name="username"
-                  value={formDetails?.username || ""}
+                  value={formDetails?.username}
                   onChange={handleInputChange}
                   placeholder="Username"
                   required
@@ -140,10 +153,9 @@ function Editor() {
                       ? "errorEmail"
                       : ""
                   }
-                  value={formDetails?.email || ""}
+                  value={formDetails?.email}
                   onChange={handleInputChange}
                   placeholder="Email Address"
-                  required
                 />
                 {emailError && <p>{emailError && emailError}</p>}
               </div>
@@ -158,9 +170,8 @@ function Editor() {
                   }
                   minLength="8"
                   onChange={handleInputChange}
-                  value={currentPassword || ""}
+                  value={currentPassword}
                   placeholder="Current Password"
-                  required
                 />
               </div>
               <div className="field">
@@ -172,7 +183,7 @@ function Editor() {
                   }
                   minLength="8"
                   onChange={handleInputChange}
-                  value={newPassword || ""}
+                  value={newPassword}
                   placeholder="New Password"
                   required
                 />
@@ -190,7 +201,7 @@ function Editor() {
                       : ""
                   }
                   placeholder="Confirm password"
-                  value={confirmNewPassword || ""}
+                  value={confirmNewPassword}
                   onChange={handleInputChange}
                   required
                 />

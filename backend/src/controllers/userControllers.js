@@ -60,44 +60,61 @@ const readToken = async (req, res, next) => {
 const edit = async (req, res, next) => {
   // Extract the user data from the request body
   const { id } = req.params;
-  const user = req.body;
+  const { username, email, current_password, new_password } = req.body;
 
   try {
-    //  Verify old password before updating
     const currentUser = await tables.User.read(id);
 
     if (!currentUser) {
       res.status(404).json({ error: "User not found" });
     }
 
-    if (user.current_password && user.new_password) {
+    if (
+      !currentUser.hashed_password ||
+      typeof currentUser.hashed_password !== "string" ||
+      currentUser.hashed_password.trim() === ""
+    ) {
+      return res
+        .status(500)
+        .json({ error: "Current user password is not set properly" });
+    }
+
+    //  Verify old password before updating
+    if (current_password && new_password) {
       const verified = await argon2.verify(
         currentUser.hashed_password,
-        user.current_password
+        current_password
       );
 
       if (!verified) {
-        return res.status(400).json({ error: "Invalid password" });
+        return res
+          .status(400)
+          .json({ error: "Current user password is not set properly" });
       }
 
-      if (user.new_password.length < 8) {
+      if (new_password.length < 8) {
         return res
           .status(400)
           .json({ error: "Password must be at least 8 characters" });
       }
 
-      req.body.hashed_password = await argon2.hash(user.new_password);
+      req.body.hashed_password = await argon2.hash(new_password);
     }
 
     // Update the user in the database
-    const affectedRows = await tables.User.update(id, user);
+    const updatedUser = await tables.User.update(id, {
+      username,
+      email,
+      hashed_password: req.body.hashed_password,
+    });
 
-    if (affectedRows === 0) {
+    if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
     }
 
     // Respond with HTTP 200 (OK) and the number of affected rows
-    res.status(200).json({ affectedRows });
+    const { hashed_password, ...userWithoutPassword } = updatedUser;
+    res.status(200).json(userWithoutPassword);
   } catch (err) {
     next(err);
   }
