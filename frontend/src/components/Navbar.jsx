@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../contexts/UserContext";
 
 function Navbar() {
   const navIcons = ["house-solid_1.svg", "user-solid_1.svg"];
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const { user } = useUser();
 
   return (
     <nav className="Navbar">
@@ -27,14 +25,13 @@ function Navbar() {
           }}
         >
           <img
-            className="Vector"
+            className={`Vector ${index === 1 && token ? "avatar" : ""}`}
             src={
-              `${import.meta.env.VITE_BACKEND_URL}/assets/icons/${icon}` ||
-              (index &&
-                user &&
-                `${
-                  import.meta.env.VITE_BACKEND_URL
-                }/assets/images/89375707.png`)
+              token && index === 1
+                ? `${
+                    import.meta.env.VITE_BACKEND_URL
+                  }/assets/images/89375707.png`
+                : `${import.meta.env.VITE_BACKEND_URL}/assets/icons/${icon}`
             }
             alt="icon"
           />

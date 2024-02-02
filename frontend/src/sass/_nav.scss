@@ -46,5 +46,14 @@
       width: 90%;
       height: 90%;
     }
+
+    .avatar {
+      border-radius: clamp(
+        calc(0.4rem * (var(--factor) * 10)),
+        // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+        calc(1.25vw * (var(--factor) * 10)),
+        calc(0.4rem * (var(--factor) * 10) * var(--enlargement))
+      );
+    }
   }
 }
