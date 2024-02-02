@@ -186,11 +186,7 @@
 
     .WildersWrapper {
       overflow-y: auto;
-      max-height: clamp(
-        calc(100vh - 195px),
-        143.75vw,
-        calc((100vh - 195px) * var(--enlargement))
-      );
+      max-height: calc(100vh - 255px);
       align-self: stretch;
       // § Make the calculation of the following height with the clamp() function as it is done above, the value being 37.5rem (100vw = 32rem)
       flex: 1;

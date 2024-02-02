@@ -14,8 +14,8 @@ CREATE TABLE `Message` (
   `sender_id` INT NOT NULL,
   `receiver_id` INT NOT NULL,
   `content` TEXT NOT NULL,
-  FOREIGN KEY (sender_id) REFERENCES User(id) ON DELETE CASCADE,
-  FOREIGN KEY (receiver_id) REFERENCES User(id) ON DELETE CASCADE
+  FOREIGN KEY (sender_id) REFERENCES User(id),
+  FOREIGN KEY (receiver_id) REFERENCES User(id)
 );
 
 DROP TABLE IF EXISTS `Chat_session`;
@@ -25,6 +25,6 @@ CREATE TABLE `Chat_session` (
   `user1_id` INT NOT NULL,
   `user2_id` INT NOT NULL,
   `last_message_id` INT, 
-  FOREIGN KEY (user1_id) REFERENCES User(id) ON DELETE CASCADE,
-  FOREIGN KEY (user2_id) REFERENCES User(id) ON DELETE CASCADE
+  FOREIGN KEY (user1_id) REFERENCES User(id),
+  FOREIGN KEY (user2_id) REFERENCES User(id)
 );

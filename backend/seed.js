@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-// const { faker } = require("@faker-js/faker");
+const { faker } = require("@faker-js/faker");
 const argon2 = require("argon2");
 
 // Import database client
@@ -14,24 +14,87 @@ const users = require("./src/services/users");
 // § Asynchronous function to insert fake data into the database
 async function insertUsers() {
   try {
-    // Create an array of promises for the hash operations
-    const hashPromises = users.map((user) => argon2.hash(user.hashed_password));
+    const queries = [];
 
-    // Await all the hash operations at once
-    const hashedPasswords = await Promise.all(hashPromises);
+    for (let i = 0; i < users.length; i += 1) {
+      const { password } = users[i];
+      const hashedPassword = argon2.hash(password);
 
-    // Create and await the database insert operations
-    const insertPromises = hashedPasswords.map((hashedPassword, index) => {
-      const user = users[index];
-      return database.query(
-        "INSERT INTO `User` (username, email, hashed_password) VALUES (?, ?, ?)",
-        [user.username, user.email, hashedPassword]
+      queries.push(
+        hashedPassword.then((hashed) => {
+          return database.query(
+            "INSERT INTO `User` (username, email, hashed_password) VALUES (?, ?, ?)",
+            [users[i].username, users[i].email, hashed]
+          );
+        })
       );
-    });
+    }
 
-    await Promise.all(insertPromises);
+    await Promise.all(queries);
   } catch (error) {
     console.error("Error inserting users:", error.message);
+    throw error;
+  }
+}
+
+async function insertMessages() {
+  try {
+    const queries = [];
+    const [usersCountRow] = await database.query(
+      "SELECT COUNT(*) AS `count` FROM `User`"
+    );
+
+    if (usersCountRow[0].count) {
+      const sender_id = faker.number.int({ min: 1, max: users.length });
+
+      const receiver_id = faker.number.int({ min: 1, max: users.length });
+
+      const content = faker.lorem.sentence();
+
+      for (let i = 0; i < 10; i += 1) {
+        queries.push(
+          database.query(
+            "INSERT INTO `Message` (sender_id, receiver_id, content) VALUES (?, ?, ?)",
+            [sender_id, receiver_id, content]
+          )
+        );
+      }
+
+      await Promise.all(queries);
+    }
+  } catch (error) {
+    console.error("Error inserting messages:", error.message);
+    throw error;
+  }
+}
+
+async function insertChats() {
+  try {
+    const queries = [];
+    const [usersCountRow] = await database.query(
+      "SELECT COUNT(*) AS `count` FROM `User`"
+    );
+
+    if (usersCountRow[0].count) {
+      const user1_id = faker.number.int({ min: 1, max: users.length });
+
+      const user2_id = faker.number.int({ min: 1, max: users.length });
+
+      const last_message_id = faker.number.int({ min: 1, max: 10 });
+
+      for (let i = 0; i < 10; i += 1) {
+        queries.push(
+          database.query(
+            "INSERT INTO `Chat_session` (user1_id, user2_id, last_message_id) VALUES (?, ?, ?)",
+            [user1_id, user2_id, last_message_id]
+          )
+        );
+      }
+
+      await Promise.all(queries);
+    }
+  } catch (error) {
+    console.error("Error inserting chats:", error.message);
     throw error;
   }
 }
@@ -49,6 +112,8 @@ const seed = async () => {
     // Optional: Truncate tables (remove existing data)
     await database.query("SET FOREIGN_KEY_CHECKS = 0");
     await database.query("TRUNCATE `User`");
+    await database.query("TRUNCATE `Message`");
+    await database.query("TRUNCATE `Chat_session`");
 
     // Insert fake data into the tables
     await insertUsers();
@@ -59,9 +124,11 @@ const seed = async () => {
     );
 
     if (numberOfUsers[0].count >= users.length) {
-      console.info("Seed data inserted correctly 👍");
+      console.info("user data inserted correctly 👍");
+      await insertMessages();
+      await insertChats();
     } else {
-      console.error("Seed data inserted incorrectly 👎");
+      console.error("user data inserted incorrectly 👎");
       // throw new Error("Seed data inserted incorrectly 👎");
     }
 
