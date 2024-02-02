@@ -28,6 +28,18 @@ function Editor() {
       setEmailError("");
     }
 
+    if (e.target.name === "current_password") {
+      setCurrentPassword(e.target.value);
+    }
+
+    if (e.target.name === "new_password") {
+      setNewPassword(e.target.value);
+    }
+
+    if (e.target.name === "confirm_password") {
+      setConfirmNewPassword(e.target.value);
+    }
+
     if (e.target.name) {
       setFormDetails({ ...formDetails, [e.target.name]: e.target.value });
     }
@@ -42,11 +54,7 @@ function Editor() {
     const updatedUser = new FormData();
 
     Object.keys(formDetails).forEach((key) => {
-      if (
-        formDetails[key] &&
-        formDetails[key] !== user[key] &&
-        key !== "password"
-      ) {
+      if (formDetails[key] && formDetails[key] !== user[key]) {
         updatedUser.append(key, formDetails[key]);
       }
     });
@@ -149,14 +157,11 @@ function Editor() {
                       : ""
                   }
                   minLength="8"
-                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  onChange={handleInputChange}
                   value={currentPassword || ""}
-                  placeholder="New Password"
+                  placeholder="Current Password"
                   required
                 />
-                {formDetails.password && formDetails.password.length < 8 && (
-                  <p>Password must be at least 8 characters long</p>
-                )}
               </div>
               <div className="field">
                 <input
@@ -166,12 +171,12 @@ function Editor() {
                     newPassword && newPassword.length < 8 ? "errorPassword" : ""
                   }
                   minLength="8"
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  onChange={handleInputChange}
                   value={newPassword || ""}
                   placeholder="New Password"
                   required
                 />
-                {formDetails.password && formDetails.password.length < 8 && (
+                {newPassword && newPassword.length < 8 && (
                   <p>Password must be at least 8 characters long</p>
                 )}
               </div>
@@ -186,7 +191,7 @@ function Editor() {
                   }
                   placeholder="Confirm password"
                   value={confirmNewPassword || ""}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  onChange={handleInputChange}
                   required
                 />
               </div>

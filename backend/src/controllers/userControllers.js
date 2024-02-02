@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-// const argon2 = require("argon2");
+const argon2 = require("argon2");
 
 // Import access to database tables
 const tables = require("../tables");
@@ -59,14 +59,41 @@ const readToken = async (req, res, next) => {
 // The E of BREAD - Edit (Update) operation
 const edit = async (req, res, next) => {
   // Extract the user data from the request body
+  const { id } = req.params;
   const user = req.body;
 
   try {
+    //  Verify old password before updating
+    const currentUser = await tables.User.read(id);
+
+    if (!currentUser) {
+      res.status(404).json({ error: "User not found" });
+    }
+
+    if (user.current_password && user.new_password) {
+      const verified = await argon2.verify(
+        currentUser.hashed_password,
+        user.current_password
+      );
+
+      if (!verified) {
+        return res.status(400).json({ error: "Invalid password" });
+      }
+
+      if (user.new_password.length < 8) {
+        return res
+          .status(400)
+          .json({ error: "Password must be at least 8 characters" });
+      }
+
+      req.body.hashed_password = await argon2.hash(user.new_password);
+    }
+
     // Update the user in the database
-    const affectedRows = await tables.User.update(user);
+    const affectedRows = await tables.User.update(id, user);
 
     if (affectedRows === 0) {
-      res.sendStatus(404);
+      return res.status(404).json({ error: "User not found" });
     }
 
     // Respond with HTTP 200 (OK) and the number of affected rows
@@ -74,6 +101,8 @@ const edit = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+
+  return null;
 };
 
 // The A of BREAD - Add (Create) operation
