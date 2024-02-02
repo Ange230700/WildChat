@@ -1,9 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import { useUser } from "../contexts/UserContext";
 
 function Profile() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, logout } = useUser();
+
+  const handleLogout = () => {
+    logout(navigate);
+  };
+
+  // § I am trying to delete the user account from the database and log them out, but the delete button is not responding. What should I do?
+
+  const handleDeleteAccount = async () => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/${user && user.id}`
+      );
+      logout(navigate);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="UserProfile">
@@ -35,8 +53,8 @@ function Profile() {
           <div className="EmailContainer">
             <h2 className="Email">{user && user.email}</h2>
           </div>
-          {/* <div className="TabsWrapper">
-            <div className="TabContainer">
+          <div className="TabsWrapper">
+            <Link to="/editor" className="TabContainer">
               <div className="Icon">
                 <img
                   className="Vector"
@@ -47,21 +65,44 @@ function Profile() {
                 />
               </div>
               <h2 className="Tab">Edit avatar</h2>
-            </div>
-          </div> */}
+            </Link>
+          </div>
         </div>
       </div>
       <div className="OptionsWrapper">
         <div className="OptionContainer">
-          <div className="Option">
+          <button type="button" className="Option" onClick={handleLogout}>
             <div className="OptionContentContainer">
-              <div
-                className="TrashSolid1"
-                style={{
-                  width: 24,
-                  height: 28,
-                }}
-              >
+              <div className="Icon">
+                <img
+                  className="Vector"
+                  src={`${
+                    import.meta.env.VITE_BACKEND_URL
+                  }/assets/icons/arrow-right-from-bracket-solid.svg`}
+                  alt="icon"
+                />
+              </div>
+              <h1 className="OptionContent">Log out</h1>
+            </div>
+            <div className="Icon">
+              <img
+                className="Vector"
+                src={`${
+                  import.meta.env.VITE_BACKEND_URL
+                }/assets/icons/chevron-right-solid.svg`}
+                alt="icon"
+              />
+            </div>
+          </button>
+        </div>
+        <div className="OptionContainer">
+          <button
+            type="button"
+            className="Option"
+            onClick={handleDeleteAccount}
+          >
+            <div className="OptionContentContainer">
+              <div className="Icon">
                 <img
                   className="Vector"
                   src={`${
@@ -81,7 +122,7 @@ function Profile() {
                 alt="icon"
               />
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </div>

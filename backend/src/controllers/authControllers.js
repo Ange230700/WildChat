@@ -26,14 +26,11 @@ const login = async (req, res, next) => {
         expiresIn: "30m",
       });
 
-      res.status(200).send({
+      const { hashed_password, ...userWithoutPassword } = user;
+      res.status(200).json({
         token,
-        user: {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-        },
-        message: "Login successful",
+        userWithoutPassword,
+        message: "Logged in successfully",
       });
     } else {
       res.status(422).send({ error: "Invalid email or password" });

@@ -278,6 +278,12 @@
       calc(1.25vw * (var(--factor) * 3)),
       calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
     );
+    gap: clamp(
+      calc(0.4rem * (var(--factor) * 3)),
+      // * calc(.4rem * 100 / 32) in vw units (100vw = 32rem)
+      calc(1.25vw * (var(--factor) * 3)),
+      calc(0.4rem * (var(--factor) * 3) * var(--enlargement))
+    );
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -334,6 +340,13 @@
         justify-content: space-between;
         align-items: center;
         display: flex;
+        cursor: pointer;
+        border: none;
+        font-family: var(--font-family);
+
+        &:hover {
+          transform: scaleX(1.05);
+        }
 
         .OptionContentContainer {
           justify-content: flex-start;

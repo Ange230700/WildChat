@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppWrapper from "./AppWrapper";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Editor from "./pages/Editor";
 import Authentification from "./pages/Authentification";
 import "./sass/index.scss";
 import { UserProvider } from "./contexts/UserContext";
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/editor",
+        element: (
+          <ProtectedRoute>
+            <Editor />
           </ProtectedRoute>
         ),
       },

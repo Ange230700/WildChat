@@ -13,7 +13,10 @@ function Authentification() {
     email: "",
     password: "",
   });
-
+  const [userSession, setUserSession] = useState({
+    email: "",
+    password: "",
+  });
   const [confirmPassword, setConfirmPassword] = useState("");
   const location = useLocation();
   const [emailError, setEmailError] = useState("");
@@ -43,6 +46,10 @@ function Authentification() {
     if (e.target.name) {
       setFormDetails({ ...formDetails, [e.target.name]: e.target.value });
     }
+  };
+
+  const handleUserSessionChange = (e) => {
+    setUserSession({ ...userSession, [e.target.name]: e.target.value });
   };
 
   const formStyle = isLogin ? { marginLeft: "0%" } : { marginLeft: "-100%" };
@@ -96,16 +103,18 @@ function Authentification() {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        userSession,
         {
-          email: formDetails.email,
-          password: formDetails.password,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
       if (response.status === 200) {
-        const { token, user } = response.data;
+        const { token, userWithoutPassword } = response.data;
         localStorage.setItem("token", token);
-        setUser(user);
+        setUser(userWithoutPassword);
         console.info("Logged in successfully");
         navigate("/home");
       } else if (response.status === 422) {
@@ -176,10 +185,24 @@ function Authentification() {
               }}
             >
               <div className="field">
-                <input type="email" placeholder="Email Address" required />
+                <input
+                  type="email"
+                  name="email"
+                  value={userSession.email || ""}
+                  placeholder="Email Address"
+                  required
+                  onChange={handleUserSessionChange}
+                />
               </div>
               <div className="field">
-                <input type="password" placeholder="Password" required />
+                <input
+                  type="password"
+                  name="password"
+                  value={userSession.password || ""}
+                  placeholder="Password"
+                  required
+                  onChange={handleUserSessionChange}
+                />
               </div>
               {/* <div className="pass-link">
               <Link to="/">Forgot password?</Link>

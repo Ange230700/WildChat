@@ -38,7 +38,7 @@ const readToken = async (req, res, next) => {
   const userInformation = req.auth;
   try {
     if (!userInformation || !userInformation.sub) {
-      res.sendStatus(401).json({ error: "Unauthorized" });
+      res.status(401).json({ error: "Unauthorized" });
     }
 
     const user = await tables.User.read(userInformation.sub);

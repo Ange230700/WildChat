@@ -32,7 +32,7 @@ export function UserProvider({ children }) {
           },
         })
         .then((response) => {
-          setUser(response.data[0]);
+          setUser(response.data);
         })
         .catch((error) => {
           console.error(error);
